@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %} Upload Photo {% endblock title %}
+
+{% block container %}
+    <a href="{% url 'home_page' %}">Назад к списку</a>
+    <h1>Новое изображение</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Send message">
+    </form>
+    <img src="{{ object.get_image_url }}" alt="{{ object.filename }}"/>
+{% endblock container %}
+
+{% block script %}
+    <script type="text/javascript">
+        const height = {{object.height}};
+        const width = {{object.width}};
+        const heightInput = document.querySelector('[name="height"]')
+        const widthInput = document.querySelector('[name="width"]')
+        heightInput.onchange = () => {
+            const scale = +heightInput.value / height;
+            widthInput.value = Math.round(scale * width)
+        }
+        widthInput.onchange = () => {
+            const scale = +widthInput.value / width;
+            heightInput.value = Math.round(scale * height)
+        }
+
+    </script>
+{% endblock %}

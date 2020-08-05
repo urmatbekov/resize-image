@@ -1,0 +1,33 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    {% with version="1.0.9" %}
+        <link rel="stylesheet" type="text/css" href="{% static 'photos/style.css' %}?v={{ version }}">
+    {% endwith %}
+    <title>{% block title %}Photo List!{% endblock title %}</title>
+</head>
+<body>
+<div class="container">
+    {% block container %}
+        <h1>Список изображений</h1>
+        {% for image in images %}
+            {% if image.image %}
+                <a class="image-link" href="{{ image.get_absolute_url }}">{{ image.filename }}</a>
+            {% endif %}
+        {% empty %}
+            <p>Нет доступных изображений</p>
+        {% endfor %}
+        <a class="upload" href="{% url 'upload' %}">Добавить изображение</a>
+    {% endblock container %}
+</div>
+
+
+{% block script %}
+{% endblock %}
+
+</body>
+</html>

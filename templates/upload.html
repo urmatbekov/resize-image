@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %} Upload Photo {% endblock title %}
+
+{% block container %}
+    <a href="{% url 'home_page' %}">Назад к списку</a>
+    <h1>Новое изображение</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Send message">
+    </form>
+{% endblock container %}
